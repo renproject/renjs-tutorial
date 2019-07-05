@@ -1,7 +1,8 @@
 {
-  "name": "basic-app",
+  "name": "rensdk-tutorial",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://renproject.github.io/rensdk-tutorial",
   "dependencies": {
     "@renproject/ren": "0.0.10",
     "react": "^16.8.6",
@@ -13,7 +14,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,5 +32,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
