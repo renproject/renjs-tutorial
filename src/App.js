@@ -154,7 +154,7 @@ class App extends React.Component {
 
       // The transaction hash of our contract call
       txHash,
-    });
+    }).readFromEthereum();
 
     this.log(`Submitting to Darknodes...`);
     await shiftOut.submitToRenVM();
