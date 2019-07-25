@@ -8,7 +8,7 @@ import './App.css';
 import ABI from "./ABI.json";
 
 // Replace with your contract's address.
-const contractAddress = "0x49dbc0f54b68aa3e9fa15e106e5b9953c6276380";
+const contractAddress = "0x200870dd0f84ddd64fc96a25d9e9107cba30a092";
 
 class App extends React.Component {
   constructor(props) {
@@ -154,7 +154,7 @@ class App extends React.Component {
 
       // The transaction hash of our contract call
       txHash,
-    });
+    }).readFromEthereum();
 
     this.log(`Submitting to Darknodes...`);
     await shiftOut.submitToRenVM();
