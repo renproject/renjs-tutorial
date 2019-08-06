@@ -1,5 +1,9 @@
 # RenSDK Tutorial
 
+Tutorial: [https://docs.renproject.io/developers/tutorial/getting-started](https://docs.renproject.io/developers/tutorial/getting-started)
+
+Deployed version: [https://renproject.github.io/rensdk-tutorial/](https://renproject.github.io/rensdk-tutorial/)
+
 ## Branches
 
 Each part of the tutorial has its own branch. You can pick up at any point in the tutorial by checkout out the previous step.
