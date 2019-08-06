@@ -8,7 +8,7 @@ import './App.css';
 import ABI from "./ABI.json";
 
 // Replace with your contract's address.
-const contractAddress = "0x200870dd0f84ddd64fc96a25d9e9107cba30a092";
+const contractAddress = "0xb2731C04610C10f2eB6A26ad14E607d44309FC10";
 
 class App extends React.Component {
   constructor(props) {
