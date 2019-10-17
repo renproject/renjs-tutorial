@@ -31,7 +31,8 @@ class App extends React.Component {
         await window.ethereum.enable();
       } catch (error) {
         // User denied account access...
-        console.error("User denied account access")
+        this.logError("Please allow access to your Web3 wallet.");
+        return;
       }
     }
     // Legacy dApp browsers...
@@ -40,10 +41,17 @@ class App extends React.Component {
     }
     // If no injected web3 instance is detected, fall back to Ganache
     else {
-      this.log("Please install MetaMask!");
+      this.logError("Please install MetaMask!");
+      return;
     }
 
     const web3 = new Web3(web3Provider);
+
+    const networkID = await web3.eth.net.getId();
+    if (networkID !== 42) {
+      this.logError("Please set your network to Kovan.");
+      return;
+    }
 
     this.setState({ web3 }, () => {
 
@@ -63,7 +71,7 @@ class App extends React.Component {
         <p><button onClick={this.deposit}>Deposit 0.001 BTC</button></p>
         <p><button onClick={() => this.withdraw().catch(this.logError)}>Withdraw {balance} BTC</button></p>
         <p>{message}</p>
-        {error ? <p color="red">{error}</p> : null}
+        {error ? <p style={{ color: "red" }}>{error}</p> : null}
       </div>
     );
   }
@@ -76,6 +84,7 @@ class App extends React.Component {
   }
 
   logError = (error) => {
+    console.error(error);
     this.setState({ error: String((error || {}).message || error) });
   }
 
