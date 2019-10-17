@@ -68,7 +68,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <p>Balance: {balance} BTC</p>
-        <p><button onClick={this.deposit}>Deposit 0.001 BTC</button></p>
+        <p><button onClick={() => this.deposit().catch(this.logError)}>Deposit 0.001 BTC</button></p>
         <p><button onClick={() => this.withdraw().catch(this.logError)}>Withdraw {balance} BTC</button></p>
         <p>{message}</p>
         {error ? <p style={{ color: "red" }}>{error}</p> : null}
@@ -93,6 +93,7 @@ class App extends React.Component {
   }
 
   deposit = async () => {
+    this.logError("");
     // TODO
   }
 
