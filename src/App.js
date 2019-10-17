@@ -15,10 +15,11 @@ class App extends React.Component {
     this.state = {
       balance: 0,
       message: "",
+      error: "",
     }
   }
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     let web3Provider;
 
     // Initialize web3 (https://medium.com/coinmonks/web3-js-ethereum-javascript-api-72f7b22e2f0a)
@@ -54,14 +55,15 @@ class App extends React.Component {
     });
   }
 
-  render() {
-    const { balance, message } = this.state;
+  render = () => {
+    const { balance, message, error } = this.state;
     return (
       <div className="App">
         <p>Balance: {balance} BTC</p>
         <p><button onClick={this.deposit}>Deposit 0.001 BTC</button></p>
-        <p><button onClick={this.withdraw}>Withdraw {balance} BTC</button></p>
+        <p><button onClick={() => this.withdraw().catch(this.logError)}>Withdraw {balance} BTC</button></p>
         <p>{message}</p>
+        {error ? <p color="red">{error}</p> : null}
       </div>
     );
   }
@@ -73,6 +75,10 @@ class App extends React.Component {
     this.setState({ balance: parseInt(balance.toString()) / 10 ** 8 });
   }
 
+  logError = (error) => {
+    this.setState({ error: String((error || {}).message || error) });
+  }
+
   log = (message) => {
     this.setState({ message });
   }
@@ -82,6 +88,7 @@ class App extends React.Component {
   }
 
   withdraw = async () => {
+    this.logError("");
     // TODO
   }
 }
