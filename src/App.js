@@ -95,7 +95,8 @@ class App extends React.Component {
   }
 
   deposit = async () => {
-    this.logError("");
+    this.logError(""); // Reset error
+
     const { web3, sdk } = this.state;
     const amount = 0.001; // BTC
 
@@ -104,7 +105,7 @@ class App extends React.Component {
       sendToken: RenSDK.Tokens.BTC.Btc2Eth,
 
       // Amount of BTC we are sending (in Satoshis)
-      sendAmount: amount * (10 ** 8), // Convert to Satoshis
+      sendAmount: Math.floor(amount * (10 ** 8)), // Convert to Satoshis
 
       // The contract we want to interact with
       sendTo: contractAddress,
@@ -141,7 +142,7 @@ class App extends React.Component {
   }
 
   withdraw = async () => {
-    this.logError("");
+    this.logError(""); // Reset error
 
     const { web3, sdk, balance } = this.state;
 
@@ -155,7 +156,7 @@ class App extends React.Component {
       contract.methods.withdraw(
         web3.utils.fromAscii(`Depositing ${amount} BTC`), // _msg
         RenSDK.Tokens.BTC.addressToHex(recipient), //_to
-        amount * (10 ** 8), // _amount in Satoshis
+        Math.floor(amount * (10 ** 8)), // _amount in Satoshis
       ).send({ from })
         .on("transactionHash", resolve)
         .catch(reject);
