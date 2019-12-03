@@ -1,8 +1,8 @@
 {
-  "name": "rensdk-tutorial",
+  "name": "renjs-tutorial",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://renproject.github.io/rensdk-tutorial",
+  "homepage": "https://renproject.github.io/renjs-tutorial",
   "dependencies": {
     "@renproject/ren": "^0.1.10",
     "react": "^16.10.2",
