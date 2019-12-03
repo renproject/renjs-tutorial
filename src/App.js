@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 import React from 'react';
-import RenSDK from "@renproject/ren";
+import RenJS from "@renproject/ren";
 import Web3 from "web3";
 import './App.css';
 
@@ -17,7 +17,7 @@ class App extends React.Component {
       balance: 0,
       message: "",
       error: "",
-      sdk: new RenSDK("testnet"),
+      renJS: new RenJS("testnet"),
     }
   }
 
@@ -97,12 +97,12 @@ class App extends React.Component {
   deposit = async () => {
     this.logError(""); // Reset error
 
-    const { web3, sdk } = this.state;
+    const { web3, renJS } = this.state;
     const amount = 0.001; // BTC
 
-    const shiftIn = sdk.shiftIn({
+    const shiftIn = renJS.shiftIn({
       // Send BTC from the Bitcoin blockchain to the Ethereum blockchain.
-      sendToken: RenSDK.Tokens.BTC.Btc2Eth,
+      sendToken: RenJS.Tokens.BTC.Btc2Eth,
 
       // Amount of BTC we are sending (in Satoshis)
       sendAmount: Math.floor(amount * (10 ** 8)), // Convert to Satoshis
@@ -144,7 +144,7 @@ class App extends React.Component {
   withdraw = async () => {
     this.logError(""); // Reset error
 
-    const { web3, sdk, balance } = this.state;
+    const { web3, renJS, balance } = this.state;
 
     const amount = balance;
     const recipient = prompt("Enter BTC recipient:");
@@ -155,7 +155,7 @@ class App extends React.Component {
     const txHash = await new Promise((resolve, reject) => {
       contract.methods.withdraw(
         web3.utils.fromAscii(`Depositing ${amount} BTC`), // _msg
-        RenSDK.Tokens.BTC.addressToHex(recipient), //_to
+        RenJS.Tokens.BTC.addressToHex(recipient), //_to
         Math.floor(amount * (10 ** 8)), // _amount in Satoshis
       ).send({ from })
         .on("transactionHash", resolve)
@@ -163,10 +163,10 @@ class App extends React.Component {
     });
 
     this.log(`Retrieving burn event from contract...`);
-    const shiftOut = await sdk.shiftOut({
+    const shiftOut = await renJS.shiftOut({
       // Send BTC from the Ethereum blockchain to the Bitcoin blockchain.
       // This is the reverse of shitIn.
-      sendToken: RenSDK.Tokens.BTC.Eth2Btc,
+      sendToken: RenJS.Tokens.BTC.Eth2Btc,
 
       // The web3 provider to talk to Ethereum
       web3Provider: web3.currentProvider,
