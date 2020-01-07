@@ -1171,10 +1171,10 @@
   dependencies:
     darknode-sol "https://github.com/renproject/darknode-sol#e9e7357e3e8d6e30bbd03a72eaaefdcb9a0e6ad7"
 
-"@renproject/ren@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@renproject/ren/-/ren-0.2.3.tgz#ae2c47a286e52842de782793a1d04c611155aa6e"
-  integrity sha512-hL7Cr4+nIvO39VNEwikUVJtymC/UPRjqQoJLrR3rfPaerHdXPIvdnJVRB7xk/kllo/uoOC6pUtgINzh9ewfTAw==
+"@renproject/ren@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@renproject/ren/-/ren-0.2.4.tgz#51f4b61cab0310141c5cf6d77cba0c44bb997d14"
+  integrity sha512-jfThaaj2Gb9rIzMgM3rtPWLtdQLYZ29+ZOIWmcEPhGCO8wMzAj7biZVJJXvSMOeZ23jqdU3N4F9Y/FuUQo4EfQ==
   dependencies:
     "@renproject/contracts" "^0.3.28"
     "@types/bn.js" "^4.11.5"
@@ -2992,9 +2992,9 @@ bl@^1.0.0:
   dependencies:
     nanoassert "^1.0.0"
 
-"blake2b@git+https://github.com/BitGo/blake2b.git#6268e6dd678661e0acc4359e9171b97eb1ebf8ac":
+"blake2b@https://github.com/BitGo/blake2b#6268e6dd678661e0acc4359e9171b97eb1ebf8ac":
   version "2.1.3"
-  resolved "git+https://github.com/BitGo/blake2b.git#6268e6dd678661e0acc4359e9171b97eb1ebf8ac"
+  resolved "https://github.com/BitGo/blake2b#6268e6dd678661e0acc4359e9171b97eb1ebf8ac"
   dependencies:
     blake2b-wasm "https://github.com/BitGo/blake2b-wasm#193cdb71656c1a6c7f89b05d0327bb9b758d071b"
     nanoassert "^1.0.0"
@@ -13488,9 +13488,9 @@ web3-net@2.0.0-alpha.1:
     web3-providers "2.0.0-alpha.1"
     web3-utils "2.0.0-alpha.1"
 
-"web3-provider-engine@git+https://github.com/trufflesuite/provider-engine.git#web3-one":
+"web3-provider-engine@https://github.com/trufflesuite/provider-engine#web3-one":
   version "14.0.6"
-  resolved "git+https://github.com/trufflesuite/provider-engine.git#3538c60bc4836b73ccae1ac3f64c8fed8ef19c1a"
+  resolved "https://github.com/trufflesuite/provider-engine#3538c60bc4836b73ccae1ac3f64c8fed8ef19c1a"
   dependencies:
     async "^2.5.0"
     backoff "^2.5.0"
