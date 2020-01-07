@@ -4,10 +4,10 @@
   "private": true,
   "homepage": "https://renproject.github.io/renjs-tutorial",
   "dependencies": {
-    "@renproject/ren": "^0.1.16",
+    "@renproject/ren": "^0.2.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0",
+    "react-scripts": "3.3.0",
     "web3": "^1.2.4"
   },
   "scripts": {
