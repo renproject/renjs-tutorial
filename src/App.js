@@ -113,6 +113,8 @@ class App extends React.Component {
       // The name of the function we want to call
       contractFn: "deposit",
 
+      nonce: renJS.utils.randomNonce(),
+
       // Arguments expected for calling `deposit`
       contractParams: [
         {
