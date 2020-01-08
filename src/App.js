@@ -63,6 +63,17 @@ class App extends React.Component {
         this.updateBalance();
       }, 10 * 1000);
     });
+
+    // Check if the user has an incomplete trade
+    const currentTrade = this.getTrade();
+
+    // Check if the trade is a deposit or a withdrawal
+    if (currentTrade && currentTrade.sendToken === RenJS.Tokens.BTC.Btc2Eth) {
+      this.deposit(currentTrade);
+    }
+    if (currentTrade && currentTrade.sendToken === RenJS.Tokens.BTC.Eth2Btc) {
+      this.withdraw(currentTrade);
+    }
   }
 
   render = () => {
@@ -86,7 +97,9 @@ class App extends React.Component {
   }
 
   logError = (error) => {
-    console.error(error);
+    if (error) {
+      console.error(error);
+    }
     this.setState({ error: String((error || {}).message || error) });
   }
 
@@ -94,13 +107,28 @@ class App extends React.Component {
     this.setState({ message });
   }
 
-  deposit = async () => {
+  // Store a trade's details to local storage
+  storeTrade = (trade) => {
+    localStorage.setItem("trade", JSON.stringify(trade));
+  }
+
+  // Retrieve a trade's details from local storage, if there is one
+  getTrade = () => {
+    try {
+      return JSON.parse(localStorage.getItem("trade"));
+    } catch (error) {
+      return undefined;
+    }
+  }
+
+  deposit = async (trade) => {
     this.logError(""); // Reset error
 
     const { web3, renJS } = this.state;
+
     const amount = 0.001; // BTC
 
-    const shiftIn = renJS.shiftIn({
+    trade = trade || {
       // Send BTC from the Bitcoin blockchain to the Ethereum blockchain.
       sendToken: RenJS.Tokens.BTC.Btc2Eth,
 
@@ -123,63 +151,80 @@ class App extends React.Component {
           value: web3.utils.fromAscii(`Depositing ${amount} BTC`),
         }
       ],
-    });
+    };
+
+    this.storeTrade(trade);
+
+    const shiftIn = renJS.shiftIn(trade);
 
     // Show the gateway address to the user so that they can transfer their BTC to it.
     const gatewayAddress = shiftIn.addr();
     this.log(`Deposit ${amount} BTC to ${gatewayAddress}`);
 
     // Wait for the Darknodes to detect the BTC transfer.
-    const confirmations = 0;
-    const deposit = await shiftIn.waitForDeposit(confirmations);
+    const confirmations = 2;
+    const deposit = await shiftIn.waitForDeposit(confirmations)
+      .on("deposit", deposit => this.log(`Waiting for BTC confirmations: ${deposit.utxo.confirmations}/${confirmations}`));
 
     // Retrieve signature from RenVM.
     this.log("Submitting to RenVM...");
-    const signature = await deposit.submitToRenVM();
+    const signature = await deposit.submitToRenVM()
+      .on("status", status => this.log(`Submitting to RenVM... (${status})`));
 
     // Submit the signature to Ethereum and receive zBTC.
     this.log("Submitting to smart contract...");
-    await signature.submitToEthereum(web3.currentProvider);
+    await signature.submitToEthereum(web3.currentProvider)
+      .on("transactionHash", txHash => this.log(`Submitting to smart contract... (hash: ${txHash})`));
     this.log(`Deposited ${amount} BTC.`);
+
+    // Clear trade from localstorage
+    this.storeTrade(undefined);
   }
 
-  withdraw = async () => {
+  withdraw = async (trade) => {
     this.logError(""); // Reset error
 
     const { web3, renJS, balance } = this.state;
 
-    const amount = balance;
-    const recipient = prompt("Enter BTC recipient:");
-    const from = (await web3.eth.getAccounts())[0];
-    const contract = new web3.eth.Contract(ABI, contractAddress);
+    if (!trade) {
+      const amount = balance;
+      const recipient = prompt("Enter BTC recipient:");
+      const from = (await web3.eth.getAccounts())[0];
+      const contract = new web3.eth.Contract(ABI, contractAddress);
 
-    this.log("Calling `withdraw` on smart contract...");
-    const txHash = await new Promise((resolve, reject) => {
-      contract.methods.withdraw(
-        web3.utils.fromAscii(`Depositing ${amount} BTC`), // _msg
-        RenJS.Tokens.BTC.addressToHex(recipient), //_to
-        Math.floor(amount * (10 ** 8)), // _amount in Satoshis
-      ).send({ from })
-        .on("transactionHash", resolve)
-        .catch(reject);
-    });
+      this.log("Calling `withdraw` on smart contract...");
+      const txHash = await new Promise((resolve, reject) => {
+        contract.methods.withdraw(
+          web3.utils.fromAscii(`Depositing ${amount} BTC`), // _msg
+          RenJS.utils.btc.addressToHex(recipient), //_to
+          Math.floor(amount * (10 ** 8)), // _amount in Satoshis
+        ).send({ from })
+          .on("transactionHash", resolve)
+          .catch(reject);
+      });
+
+      trade = {
+        // Send BTC from the Ethereum blockchain to the Bitcoin blockchain.
+        // This is the reverse of shitIn.
+        sendToken: RenJS.Tokens.BTC.Eth2Btc,
+
+        // The transaction hash of our contract call
+        txHash,
+      };
+      this.storeTrade(trade);
+    }
 
     this.log(`Retrieving burn event from contract...`);
-    const shiftOut = await renJS.shiftOut({
-      // Send BTC from the Ethereum blockchain to the Bitcoin blockchain.
-      // This is the reverse of shitIn.
-      sendToken: RenJS.Tokens.BTC.Eth2Btc,
+    const shiftOut = await renJS.shiftOut({ ...trade, web3Provider: web3.currentProvider }).readFromEthereum();
 
-      // The web3 provider to talk to Ethereum
-      web3Provider: web3.currentProvider,
+    this.log(`Submitting to RenVM...`);
+    await shiftOut.submitToRenVM()
+      .on("status", status => this.log(`Submitting to RenVM... (${status})`));
 
-      // The transaction hash of our contract call
-      txHash,
-    }).readFromEthereum();
+    this.log(`Withdrew BTC successfully.`);
 
-    this.log(`Submitting to Darknodes...`);
-    await shiftOut.submitToRenVM();
-    this.log(`Withdrew ${amount} BTC to ${recipient}.`);
+    // Clear trade from localstorage
+    this.storeTrade(undefined);
   }
 }
 

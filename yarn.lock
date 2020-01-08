@@ -1171,10 +1171,10 @@
   dependencies:
     darknode-sol "https://github.com/renproject/darknode-sol#e9e7357e3e8d6e30bbd03a72eaaefdcb9a0e6ad7"
 
-"@renproject/ren@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@renproject/ren/-/ren-0.2.4.tgz#51f4b61cab0310141c5cf6d77cba0c44bb997d14"
-  integrity sha512-jfThaaj2Gb9rIzMgM3rtPWLtdQLYZ29+ZOIWmcEPhGCO8wMzAj7biZVJJXvSMOeZ23jqdU3N4F9Y/FuUQo4EfQ==
+"@renproject/ren@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@renproject/ren/-/ren-0.2.5.tgz#a07df7d6979bd2a746db499fdea93b3a154b800c"
+  integrity sha512-/ORp7YMOytulounpiVpYIh+7eryvTrgfVSmkuoFMbU2tQVs7G5zXxh1G/t0W2Gx/Sd6+Qu6qZVbwRteUOxq1lg==
   dependencies:
     "@renproject/contracts" "^0.3.28"
     "@types/bn.js" "^4.11.5"
@@ -2124,12 +2124,11 @@ aws4@^1.8.0:
   integrity sha512-Uvq6hVe90D0B2WEnUqtdgY1bATGz3mw33nH9Y+dmA+w5DHvUmBgkr5rM/KCHpCsiFNRUfokW/szpPPgMK2hm4A==
 
 axios@^0.19.0:
-  version "0.19.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.0.tgz#8e09bff3d9122e133f7b8101c8fbdd00ed3d2ab8"
-  integrity sha512-1uvKqKQta3KBxIz14F2v06AEHZ/dIoeKfbTRkK1E5oqjDnuEerLmYTgJB5AiQZHJcljpg1TuRzdjDR06qNk0DQ==
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.1.tgz#8a6a04eed23dfe72747e1dd43c604b8f1677b5aa"
+  integrity sha512-Yl+7nfreYKaLRvAvjNPkvfjnQHJM1yLBY3zhqAwcJSwR/6ETkanUgylgtIvkvz0xJ+p/vZuNw8X7Hnb7Whsbpw==
   dependencies:
     follow-redirects "1.5.10"
-    is-buffer "^2.0.2"
 
 axobject-query@^2.0.2:
   version "2.1.1"
@@ -2917,11 +2916,11 @@ bitcoin-ops@^1.3.0:
   integrity sha512-pef6gxZFztEhaE9RY9HmWVmiIHqCb2OyS4HPKkpc6CIiiOa3Qmuoylxc5P2EkU3w+5eTSifI9SEZC88idAIGow==
 
 bitcore-lib-cash@^8.13.2:
-  version "8.13.2"
-  resolved "https://registry.yarnpkg.com/bitcore-lib-cash/-/bitcore-lib-cash-8.13.2.tgz#3ccb0b0489850553d87393ba28c869c85b760c71"
-  integrity sha512-wfFcW27Olv+xg4jqUSjjbA9HK8ofcYiJu7to08RNAOq/RH87rSf4U2QU4hkjQMFB5UPBDG13yxlLI5wVM6aNaQ==
+  version "8.14.0"
+  resolved "https://registry.yarnpkg.com/bitcore-lib-cash/-/bitcore-lib-cash-8.14.0.tgz#fb8683dbc8f2a2611f504a4a76f9ea3f8ca647ad"
+  integrity sha512-/wyLyCv2hMYXkxFJev2iRzP0670hUqKKvh7Ye835ff5TFvIRjDFRSi9d09GYEKV2U0AXkH7NevH0hrGmj8AY/w==
   dependencies:
-    bitcore-lib "^8.13.2"
+    bitcore-lib "^8.14.0"
     bn.js "=4.11.8"
     bs58 "^4.0.1"
     buffer-compare "=1.1.1"
@@ -2940,10 +2939,10 @@ bitcore-lib-zcash@zcash-hackworks/bitcore-lib-zcash:
     inherits "=2.0.1"
     lodash "=3.10.1"
 
-bitcore-lib@^8.13.2:
-  version "8.13.2"
-  resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-8.13.2.tgz#34c7b715397e89eb187c748e921bcc9a9eefc2ab"
-  integrity sha512-/KSgsRxR9ekbDIDKkhnExBdJixH28lYtql40Qa+MAdYJUAMRIl2TC6gN6t7kCRLfSXogZZsZc8I6tVro9xA0+w==
+bitcore-lib@^8.13.2, bitcore-lib@^8.14.0:
+  version "8.14.0"
+  resolved "https://registry.yarnpkg.com/bitcore-lib/-/bitcore-lib-8.14.0.tgz#8859a0e761afe085edd54cf2ab2b9f4d2db367e9"
+  integrity sha512-IO/WtbLjuv+0bAu5BlIhp+4aT1KhOQe9jUicATzIZcbySrTvk3QeGSAFavzyKPwlgwwuRe+PRuEG60cbgnr7Hg==
   dependencies:
     bech32 "=1.1.3"
     bn.js "=4.11.8"
@@ -6985,11 +6984,6 @@ is-buffer@^1.0.2, is-buffer@^1.1.5:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
   integrity sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==
-
-is-buffer@^2.0.2:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-2.0.4.tgz#3e572f23c8411a5cfd9557c849e3665e0b290623"
-  integrity sha512-Kq1rokWXOPXWuaMAqZiJW4XxsmD9zGx9q4aePabbn3qCRGedtH7Cm+zV8WETitMfu1wdh+Rvd6w5egwSngUX2A==
 
 is-callable@^1.1.3, is-callable@^1.1.4, is-callable@^1.1.5:
   version "1.1.5"
