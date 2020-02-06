@@ -133,7 +133,7 @@ class App extends React.Component {
       sendToken: RenJS.Tokens.BTC.Btc2Eth,
 
       // Amount of BTC we are sending (in Satoshis)
-      sendAmount: Math.floor(amount * (10 ** 8)), // Convert to Satoshis
+      suggestedAmount: Math.floor(amount * (10 ** 8)), // Convert to Satoshis
 
       // The contract we want to interact with
       sendTo: contractAddress,
