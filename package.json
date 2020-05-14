@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://renproject.github.io/renjs-tutorial",
   "dependencies": {
-    "@renproject/gateway": "^1.0.0-alpha.4",
+    "@renproject/gateway": "^1.0.0-alpha.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
