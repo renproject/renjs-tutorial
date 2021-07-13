@@ -1,3 +1,3 @@
 # `📚 RenJS Tutorial`
 
-Tutorial: [https://docs.renproject.io/developers/getting-started](https://docs.renproject.io/developers/getting-started)
+Tutorial: [https://renproject.github.io/ren-client-docs/ren-js/](https://renproject.github.io/ren-client-docs/ren-js/)
